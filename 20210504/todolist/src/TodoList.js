@@ -28,10 +28,11 @@ class TodoList extends Component {
             id="insertArea"
             className='input'
             value={this.state.inputValue}
-            onChange={this.handleChange} />
+            onChange={this.handleChange}
+            ref={(inputDom) => { this.input = inputDom }} />
           <button onClick={this.handleClick}>提交</button>
         </div>
-        <ul>
+        <ul ref={(ul) => this.ul = ul}>
           {this.getTodoItems()}
         </ul>
       </Fragment>
@@ -44,7 +45,9 @@ class TodoList extends Component {
     // this.setState({
     //   inputValue: e.target.value
     // })
-    const value = e.target.value
+    // const value = e.target.value
+    //ref属性的使用
+    const value = this.input.value
     // 带返回值，“()”表示返回值的意思
     this.setState(() => ({
       inputValue: value
@@ -56,10 +59,14 @@ class TodoList extends Component {
     //   list: [...this.state.list, this.state.inputValue],
     //   inputValue: ''
     // })
+    //异步函数
     this.setState((prev) => ({
       list: [...prev.list, prev.inputValue],
       inputValue: ''
-    }))
+    }), () => {
+      //异步函数执行之后执行此方法
+      console.log(this.ul.querySelectorAll('div').length);
+    })
   }
 
   delItem (index) {

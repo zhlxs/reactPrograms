@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
 class TodoItem extends Component {
 
   constructor(props) {
@@ -18,6 +19,18 @@ class TodoItem extends Component {
     const { delItem, index } = this.props
     delItem(index)
   }
+}
+//约束传值的类型，规范编码
+TodoItem.propTypes = {
+  content: PropTypes.string,
+  delItem: PropTypes.func,
+  index: PropTypes.number,
+  param: PropTypes.string.isRequired
+}
+
+//设置传值的默认值
+TodoItem.defaultProps = {
+  param: 'test'
 }
 
 export default TodoItem;
